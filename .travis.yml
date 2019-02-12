@@ -1,0 +1,32 @@
+language: bash
+
+services: docker
+
+env:
+  - VERSION=latest VARIANT=
+  - VERSION=latest VARIANT=alpine
+  - VERSION=5.0 VARIANT=
+  - VERSION=5.0 VARIANT=alpine
+  - VERSION=4.0 VARIANT=
+  - VERSION=4.0 VARIANT=alpine
+  
+install:
+  - git clone https://github.com/tenshiAMD/docker-redis ~/docker-images
+
+before_script:
+  - env | sort
+  - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
+  - cd "$VERSION/$VARIANT"
+  - image="redis:${VERSION}${VARIANT:+-$VARIANT}"
+
+script:
+  - |
+    (
+      set -Eeuo pipefail
+      set -x
+      docker build -t "$image" .
+    )
+after_script:
+  - docker images
+
+# vim:set et ts=2 sw=2:
