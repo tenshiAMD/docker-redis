@@ -2,7 +2,7 @@ ARG REDIS_VERSION=5-alpine
 
 FROM redis:${REDIS_VERSION}
 
-LABEL maintainer="Angel Aviel Domaoan <tenshiAMD@users.noreply.github.com>"
+LABEL maintainer="Angel Aviel Domaoan <dev.tenshiamd@gmail.com>"
 
 ENV REDIS_HOME /var/lib/redis
 ENV REDIS_PORT 6379
